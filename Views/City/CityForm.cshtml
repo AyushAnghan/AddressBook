@@ -1,0 +1,70 @@
+﻿@model LocMvc.Models.CityModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Add City</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-controller="City" asp-action="Save">
+                        <!-- Hidden CityID field -->
+                        <div class="mb-3">
+                            <input type="hidden" asp-for="CityID" class="form-control" id="CityID" name="CityID" required>
+                        </div>
+
+                        <!-- Country dropdown -->
+                        <div class="mb-3">
+                            <label for="CountryId" class="form-label">Select Country</label>
+                            <select asp-for="CountryId" id="CountryId" class="form-control" asp-items="@(new SelectList(ViewBag.CountryList,"CountryId", "CountryName"))" name="CountryId" required>
+                                <option value="">-- Select Country --</option>
+                            </select>
+                        </div>
+
+                        <!-- State dropdown -->
+                        <div class="mb-3">
+                            <label for="StateID" class="form-label">Select State</label>
+                            <select asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID", "StateName"))" class="form-control" id="StateID" name="StateID" required>
+                                <option value="">-- Select State --</option>
+                            </select>
+                        </div>
+
+                        <!-- City Name input field -->
+                        <div class="mb-3">
+                            <label for="CityName" class="form-label">City Name</label>
+                            <input type="text" asp-for="CityName" class="form-control" id="CityName" name="CityName" placeholder="Enter City Name" required>
+                        </div>
+
+                        <!-- City Code input field -->
+                        <div class="mb-3">
+                            <label for="CityCode" class="form-label">City Code</label>
+                            <input type="text" asp-for="CityCode" class="form-control" id="CityCode" name="CityCode" placeholder="Enter City Code" required>
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $('#CountryId').change(function () {
+        $.post('@Url.Action("GetStateListJson")', { CountryId: $(this).val() }, function (data) {
+            $('#StateID').empty().append('<option>Select State </option>');
+            $.each(data, function (i, state) {
+                console.log(state);
+                $('#StateID').append(`<option value="${state.stateID}">${state.stateName}</option>`);
+
+            });
+        });
+    });
+</script>
+
+

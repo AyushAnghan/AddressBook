@@ -1,0 +1,33 @@
+﻿@model CountryModel
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4>Add Country</h4>
+                    </div>
+                    <div class="card-body">
+                    <form method="post" asp-controller="Country" asp-action="Save">
+                            <div class="mb-3">
+                                @* <label for="countryId" class="form-label">Country ID</label> *@
+                                <input type="hidden" asp-for="countryId" class="form-control" id="countryId" name="countryId" placeholder="Enter Country ID" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="countryName" class="form-label">Country Name</label>
+                                <input type="text" asp-for="countryName" class="form-control" id="countryName" name="countryName" placeholder="Enter Country Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="countryCode" class="form-label">Country Code</label>
+                                <input type="text"  asp-for ="countryCode" class="form-control" id="countryCode" name="countryCode" placeholder="Enter Country Code" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
